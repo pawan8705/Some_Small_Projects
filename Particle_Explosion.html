@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>10 Sec Neon Particle Explosion</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { margin:0; overflow:hidden; background:#020617; }
+  canvas { display:block; }
+</style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<script>
+const canvas=document.getElementById("c");
+const ctx=canvas.getContext("2d");
+let w,h;
+function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}
+resize(); window.addEventListener('resize',resize);
+
+// Create particles
+const particles=[];
+const total=200;
+for(let i=0;i<total;i++){
+  particles.push({
+    x:Math.random()*w,
+    y:Math.random()*h,
+    vx:(Math.random()-0.5)*2,
+    vy:(Math.random()-0.5)*2,
+    size:Math.random()*2+1,
+    color:`hsl(${Math.random()*360},100%,60%)`
+  });
+}
+
+let t=0; // time
+function draw(){
+  ctx.fillStyle='rgba(2,6,23,0.2)';
+  ctx.fillRect(0,0,w,h);
+
+  particles.forEach(p=>{
+    // attraction to center first half
+    let centerX=w/2, centerY=h/2;
+    if(t<5){ // 0-5 sec
+      let dx=centerX-p.x, dy=centerY-p.y;
+      p.vx+=dx*0.002; p.vy+=dy*0.002;
+    } else { // 5-10 sec explosion
+      let angle=Math.random()*Math.PI*2;
+      let speed=2+Math.random()*3;
+      p.vx=Math.cos(angle)*speed; p.vy=Math.sin(angle)*speed;
+    }
+    p.x+=p.vx; p.y+=p.vy;
+
+    // draw particle
+    ctx.fillStyle=p.color;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+  });
+
+  t+=0.02;
+  if(t>10) t=0; // loop
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>

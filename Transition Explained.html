@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Transition Explained</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  background:#0b0f1a;
+  font-family:system-ui;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.wrapper{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+  width:96%;
+  max-width:1000px;
+}
+
+/* LEFT SIDE */
+.left{
+  background:#020617;
+  padding:24px;
+  border-radius:16px;
+  border:1px solid #1e293b;
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.row{
+  position:relative;
+  height: 55px;
+  background:#1e293b;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom: 20px;
+}
+
+.box{
+  width:45px;
+  height:45px;
+  border-radius:8px;
+  position:absolute;
+  top:4px;
+  left:4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.ease-box       { 
+  background:#4f9cff; 
+  transition:transform 1.4s ease; 
+}
+
+.ease-in-box    { 
+  background:#10b981; 
+  transition:transform 1.4s ease-in; 
+}
+
+.ease-out-box   { 
+  background:#f59e0b; 
+  transition:transform 1.4s ease-out; 
+}
+
+.ease-in-out-box{ 
+  background:#8b5cf6; 
+  transition:transform 1.4s ease-in-out; 
+}
+
+.linear-box     { 
+  background:#ef4444; 
+  transition:transform 1.4s linear; 
+}
+
+/* RIGHT SIDE */
+.right{
+  background:#020617;
+  padding:24px;
+  border-radius:16px;
+  border:1px solid #1e293b;
+  font-family:monospace;
+  font-size:14px;
+  line-height:1.7;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.code{
+  padding:14px;
+  border-radius:8px;
+  background:#0f172a;
+  transition:all 0.3s;
+}
+
+.code:hover{
+  background:#1e293b;
+}
+
+.ease-code{
+  border-left:4px solid #4f9cff;
+}
+
+.ease-in-code{
+  border-left:4px solid #10b981;
+}
+
+.ease-out-code{
+  border-left:4px solid #f59e0b;
+}
+
+.ease-in-out-code{
+  border-left:4px solid #8b5cf6;
+}
+
+.linear-code{
+  border-left:4px solid #ef4444;
+}
+
+.property{
+  color:#ff79c6;
+}
+
+.value{
+  color:#8be9fd;
+}
+
+.comment{
+  color:#b2c0eb;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="row">
+      <div class="track"></div>
+      <div class="box ease-box"></div>
+    </div>
+    <div class="row">
+      <div class="track"></div>
+      <div class="box ease-in-box"></div>
+    </div>
+    <div class="row">
+      <div class="track"></div>
+      <div class="box ease-out-box"></div>
+    </div>
+    <div class="row">
+      <div class="track"></div>
+      <div class="box ease-in-out-box"></div>
+    </div>
+    <div class="row">
+      <div class="track"></div>
+      <div class="box linear-box"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+
+    <div class="code ease-code">
+      <span class="property">transition</span>: <span class="value">transform 1.4s ease</span>;<br>
+      <span class="comment">/* slow start → fast → slow end */</span>
+    </div>
+
+    <div class="code ease-in-code">
+      <span class="property">transition</span>: <span class="value">transform 1.4s ease-in</span>;<br>
+      <span class="comment">/* slow start → fast end */</span>
+    </div>
+
+    <div class="code ease-out-code">
+      <span class="property">transition</span>: <span class="value">transform 1.4s ease-out</span>;<br>
+      <span class="comment">/* fast start → slow end */</span>
+    </div>
+
+    <div class="code ease-in-out-code">
+      <span class="property">transition</span>: <span class="value">transform 1.4s ease-in-out</span>;<br>
+      <span class="comment">/* slow start → fast → slow end */</span>
+    </div>
+
+    <div class="code linear-code">
+      <span class="property">transition</span>: <span class="value">transform 1.4s linear</span>;<br>
+      <span class="comment">/* constant speed */</span>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const boxes = document.querySelectorAll(".box");
+let toggle = false;
+
+// Animate with staggered timing
+function animateBoxes() {
+  toggle = !toggle;
+  
+  boxes.forEach((box, index) => {
+    // Stagger each box slightly
+    setTimeout(() => {
+      box.style.transform = toggle 
+        ? "translateX(300px) rotate(180deg) scale(1.1)" 
+        : "translateX(0) rotate(0) scale(1)";
+    }, index * 100);
+  });
+}
+
+// Start animation
+animateBoxes();
+setInterval(animateBoxes, 1600);
+
+// Add hover effect to highlight corresponding code
+boxes.forEach((box, index) => {
+  const codeBlocks = document.querySelectorAll('.code');
+  
+  box.addEventListener('mouseenter', () => {
+    codeBlocks[index].style.transform = 'translateX(8px)';
+    codeBlocks[index].style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+  });
+  
+  box.addEventListener('mouseleave', () => {
+    codeBlocks[index].style.transform = 'translateX(0)';
+    codeBlocks[index].style.boxShadow = 'none';
+  });
+});
+</script>
+
+</body>
+</html>

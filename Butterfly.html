@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fluttering Neon Butterfly</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body { 
+  margin:0; 
+  overflow:hidden; background:#020617;
+}
+canvas { 
+  display:block;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<script>
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+let w,h;
+function resize(){w=canvas.width=innerWidth; h=canvas.height=innerHeight;}
+resize(); window.addEventListener('resize',resize);
+
+// Butterfly parametric points
+function butterflyPoints(scale=120, cx=w/2, cy=h/2){
+  const pts=[];
+  for(let t=0; t<Math.PI*2; t+=0.05){
+    const x = scale * Math.sin(t)*(Math.exp(Math.cos(t)) - 2*Math.cos(4*t) - Math.pow(Math.sin(t/12),5));
+    const y = -scale * Math.cos(t)*(Math.exp(Math.cos(t)) - 2*Math.cos(4*t) - Math.pow(Math.sin(t/12),5));
+    pts.push({x:cx+x, y:cy+y});
+  }
+  return pts;
+}
+
+const target = butterflyPoints(120);
+const total = 400;
+const particles = [];
+
+for(let i=0;i<total;i++){
+  particles.push({
+    x: Math.random()*w,
+    y: Math.random()*h,
+    vx:0, vy:0,
+    size:1+Math.random()*2,
+    color:`hsl(${Math.random()*360},100%,60%)`,
+    target: target[i%target.length],
+    offset: Math.random()*Math.PI*2
+  });
+};
+
+let t=0;
+
+function draw(){
+  // dynamic background gradient
+  const grad = ctx.createRadialGradient(w/2,h/2,0,w/2,h/2,w/2);
+  grad.addColorStop(0, `hsl(${(t*50)%360}, 70%, 10%)`);
+  grad.addColorStop(1, "#020617");
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,0,w,h);
+
+  particles.forEach(p=>{
+    // wing flutter: sine wave on y
+    let flutter = Math.sin(t*3 + p.offset)*5;
+
+    // gradually move towards target
+    let speed = 0.08;
+    if(t<3) speed=0.03;      // float
+    else if(t<7) speed=0.1;  // form butterfly
+    else speed=0.05;         // flutter
+
+    p.vx += (p.target.x - p.x)*speed;
+    p.vy += (p.target.y + flutter - p.y)*speed;
+
+    // damping
+    p.vx*=0.9; p.vy*=0.9;
+    p.x+=p.vx; p.y+=p.vy;
+
+    // draw particle with glow
+    ctx.fillStyle=p.color;
+    ctx.shadowColor = p.color;
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  });
+
+  t+=0.02;
+  if(t>15){
+    // reset
+    particles.forEach(p=>{
+      p.x=Math.random()*w;
+      p.y=Math.random()*h;
+    });
+    t=0;
+  }
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>

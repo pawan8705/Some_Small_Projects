@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Black Hole Cursor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#020617;
+}
+canvas{
+  position:fixed;
+  inset:0;
+}
+.title{
+  position:fixed;
+  top:40%;
+  width:100%;
+  text-align:center;
+  font-size:4rem;
+  font-weight:900;
+  color:white;
+  mix-blend-mode:exclusion;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="title">BLACK HOLE</div>
+<canvas id="c"></canvas>
+
+<script>
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+let w,h;
+let mouse = {x:-9999,y:-9999};
+let points = [];
+
+function resize(){
+  w = canvas.width = innerWidth;
+  h = canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+addEventListener("mousemove", e=>{
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+addEventListener("mouseleave", ()=>{
+  mouse.x = -9999;
+  mouse.y = -9999;
+});
+
+// Create grid points
+for(let y=0;y<innerHeight;y+=25){
+  for(let x=0;x<innerWidth;x+=25){
+    points.push({x,y,ox:x,oy:y});
+  }
+}
+
+function draw(){
+  ctx.clearRect(0,0,w,h);
+
+  points.forEach(p=>{
+    const dx = mouse.x - p.x;
+    const dy = mouse.y - p.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    const force = Math.max(0, 150 - dist);
+
+    if(dist < 150){
+      p.x += dx / dist * force * 0.05;
+      p.y += dy / dist * force * 0.05;
+    } else {
+      // return to origin
+      p.x += (p.ox - p.x) * 0.05;
+      p.y += (p.oy - p.y) * 0.05;
+    }
+
+    ctx.fillStyle = "rgba(0,255,255,0.35)";
+    ctx.fillRect(p.x, p.y, 2, 2);
+  });
+
+  // Black hole core
+  ctx.beginPath();
+  ctx.arc(mouse.x, mouse.y, 20, 0, Math.PI*2);
+  ctx.fillStyle="rgba(0,0,0,0.8)";
+  ctx.fill();
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>
