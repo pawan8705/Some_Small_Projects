@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fifth File</title>
+  <style>
+    body {
+      margin: 0px;
+      padding: 0px;
+      box-sizing: border-box;
+      background-color: #000;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: #000;
+      width: 50vw;
+      height: 100vh;
+    }
+
+    .button {
+      font-weight: 600;
+      margin: 20px;
+      height: 10vh;
+      width: 40vh;
+      font-size: larger;
+      cursor: pointer;
+      color: #fff;
+      background-color: #000;
+    }
+
+    /* button-1 */
+    .btn1 {
+      border: 2px solid red;
+      color: red;
+      transition: 0.2s;
+      border-radius: 10px;
+    }
+
+    .btn1:hover {
+      color: #fff;
+      background-color: red;
+      transition-delay: 0.1s;
+      box-shadow: 0 0 10px red, 0 0 40px red, 0 0 80px red;
+    }
+
+    /* button-2 */
+
+    .btn2 {
+      border: none;
+      background-color: #61dbf0;
+      box-shadow: 0 0 5px #8fead9;
+      border-radius: 10px;
+    }
+
+    .btn2:hover {
+      box-shadow: 0 0 10px #8fead9, 0 0 20px #8fead9, 0 0 10px #fff inset;
+    }
+
+    /* button-3 */
+    .btn3 {
+      border: 3px solid #68b427;
+      color: #68b427;
+      box-shadow: 0 0 5px #68b427, 0 0 5px #68b427 inset;
+      border-radius: 10px;
+    }
+
+    .btn3:hover {
+      color: #fff;
+      box-shadow: inset 0 0 10px #68b427, 0 0 20px #68b427 inset,
+        0 0 20px #68b427 inset;
+    }
+
+    /* button-4 */
+    .btn4 {
+      color: #7151ff;
+      border: 1px solid #7151ff;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .btn4:hover {
+      box-shadow: 8px 8px #7151ff;
+      transition: 0.3s;
+    }
+
+    /* button-5 */
+    .btn5 {
+      background-color: transparent;
+      border: 3px solid sandybrown;
+      color: sandybrown;
+      transition: 0.3s;
+    }
+
+    .btn5:hover {
+      animation: ani 1s infinite;
+      transition: 0.3s;
+    }
+
+    @keyframes ani {
+      0% {
+        transform: scale(1);
+      }
+
+      70% {
+        transform: scale(0.5);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* button-6 */
+    .btn6 {
+      color: #dc143c;
+      background-color: #fff;
+      border: 3px solid #dc143c;
+      border-radius: 6px;
+      display: inline-block;
+      transition: all 0.3 ease 0s;
+    }
+
+    .btn6:hover {
+      color: #61b517;
+      border-radius: 50px;
+      border-color: #77ff00;
+      transition: all 0.3s ease 0s;
+    }
+
+    /* button-7 */
+    .btn7 {
+      background: linear-gradient(20deg, #ffa600 50%, #77ff00 50%);
+      border-radius: 10px;
+      box-shadow: 0 0 8px 2px white;
+      color: #000;
+    }
+
+    .btn7:hover {
+      background: linear-gradient(160deg, #ffa600 50%, #77ff00 50%);
+    }
+
+    /* button-8 */
+    .btn8 {
+      border: 4px solid;
+      border-color: red #2f00ff #00ff00 #aa0cff;
+      border-radius: 50px;
+      color: #ffa4b6;
+      background-color: #63026c;
+      animation: animation 0.5s ease 0s infinite;
+    }
+
+    .btn8:hover {
+      animation: none;
+      color: #000;
+      background-color: #fff;
+    }
+
+    @keyframes animation {
+      0% {
+        color: #dc143c;
+        border-color: #ff0000 #2f00ff #00ff00 #aa0cff;
+      }
+
+      100% {
+        color: antiquewhite;
+        border-color: #aa0cff #ff0000 #2f00ff #00ff00;
+      }
+    }
+
+    /* button-9 */
+    .btn9 {
+      background: linear-gradient(#000000, #ffffff);
+      border-radius: 10px;
+    }
+
+    .btn9:hover {
+      background: linear-gradient(#ffffff, #000000);
+    }
+
+    /* button-10 */
+    .btn10 {
+      background: linear-gradient(#ffaa00, #ffffff, #00ff00);
+      border-radius: 20%;
+      color: #000;
+      animation: myani 1s ease 0s infinite;
+    }
+
+    .btn10:hover {
+      animation: none;
+    }
+
+    @keyframes myani {
+      0% {
+        border-radius: 20%;
+      }
+
+      100% {
+        border-radius: 80%;
+      }
+
+      0% {
+        border-radius: 20%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <button class="button btn1">Click me!</button>
+    <button class="button btn2">Click me!</button>
+    <button class="button btn3">Click me!</button>
+    <button class="button btn4">Click me!</button>
+    <button class="button btn5">Click me!</button>
+    <button class="button btn6">Click me!</button>
+    <button class="button btn7">Click me!</button>
+    <button class="button btn8">Click me!</button>
+    <button class="button btn9">Click me!</button>
+    <button class="button btn10">Click me!</button>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0px;
+      padding: 0px;
+      box-sizing: border-box;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 50%;
+      margin: auto;
+      background-color: #2e2e2e6a;
+    }
+
+    .box {
+      margin: 10px 15px;
+      height: 18vh;
+      width: 18vh;
+      border: 2px solid black;
+    }
+
+    .b1 {
+      background: linear-gradient(#00ffff, #ff02ff);
+    }
+
+    .b2 {
+      background: linear-gradient(to top, #00ffff, #ff02ff);
+    }
+
+    .b3 {
+      background: linear-gradient(to right, #00ffff, #ff02ff);
+    }
+
+    .b4 {
+      background: linear-gradient(to left, #00ffff, #ff02ff);
+    }
+
+    .b5 {
+      background: linear-gradient(#ffe4a6, #ff9d9d, #97ff97, #93f6e5);
+    }
+
+    .b6 {
+      background: linear-gradient(45deg, #659ff6 50%, #fd8595 50%);
+    }
+
+    .b7 {
+      background: linear-gradient(to right, #00ffff 20%, #ff02ff 20%, #ff02ff 40%, #0032fc 40%, #0032fc 60%, #ffa500 60%, #ffa500 80%, #008000 80%, #008000 100%);
+    }
+
+    .b8 {
+      background: linear-gradient(135deg, #00ffff 20%, #ff02ff 20%, #ff02ff 40%, #0032fc 40%, #0032fc 60%, #ffa500 60%, #ffa500 80%, #008000 80%, #008000 100%);
+    }
+
+    .b9 {
+      background: repeating-radial-gradient(circle, #ff00ee, #00fff7 20%);
+    }
+
+    .b10 {
+      background: radial-gradient(#00ffff 20%, #ff02ff 20%, #ff02ff 40%, #0032fc 40%, #0032fc 60%, #ffa500 60%, #ffa500 80%, #008000 80%, #008000 100%);
+    }
+
+    .b11 {
+      background: conic-gradient(#00ffff 20%, #ff02ff 20%, #ff02ff 40%, #0032fc 40%, #0032fc 60%, #ffa500 60%, #ffa500 80%, #008000 80%, #008000 100%);
+    }
+
+    .b12 {
+      background: linear-gradient(135deg, #659ff6 15%, orange 15%, orange 85%, #659ff6 85%);
+    }
+
+    .b13 {
+      background: conic-gradient(#659ff6 13%, orange 13%, orange 87%, #659ff6 87%)
+    }
+
+    .b14 {
+      background: conic-gradient(#659ff6 36%, #659ff6 38%, orange 38%, orange 50%, red 48%, red 62%, #659FF6 61%);
+    }
+
+    .b15 {
+      background: linear-gradient(135deg, #659ff6 0%, #f317ff 90%);
+    }
+
+    .b16 {
+      background: conic-gradient(#659ff6 0%, #f317ff 90%);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="box b1"></div>
+    <div class="box b2"></div>
+    <div class="box b3"></div>
+    <div class="box b4"></div>
+    <div class="box b5"></div>
+    <div class="box b6"></div>
+    <div class="box b7"></div>
+    <div class="box b8"></div>
+    <div class="box b9"></div>
+    <div class="box b10"></div>
+    <div class="box b11"></div>
+    <div class="box b12"></div>
+    <div class="box b13"></div>
+    <div class="box b14"></div>
+    <div class="box b15"></div>
+    <div class="box b16"></div>
+  </div>
+
+</body>
+
+</html>

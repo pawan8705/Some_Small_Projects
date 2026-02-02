@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html {
+      min-block-size: 100%;
+      display: grid;
+      place-items: center;
+      color: white;
+      perspective: 100px;
+    }
+
+    body {
+      background-image: linear-gradient(-45deg, #2dffed, #f70bff);
+      text-align: center;
+    }
+
+    .integer {
+      padding: 0.5em;
+      min-width: 2ch;
+      text-align: center;
+      font-size: 25vmin;
+      font-weight: bold;
+      background: #03013e;
+      color: white;
+      border-radius: 6rem 6rem 1rem 1rem;
+      view-transition-name: number;
+      border: 5px solid #ffd1d164;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .integer span {
+      font-size: 1.5rem;
+    }
+
+    @keyframes blend-in {
+      0% {
+        opacity: 0;
+      }
+
+      15%,
+      100% {
+        opacity: 1;
+      }
+
+    }
+
+    @keyframes rotate-in {
+      0% {
+        filter: brightness(1.5);
+        rotate: x 90deg;
+      }
+
+      100% {
+        rotate: x 0deg;
+      }
+    }
+
+    @keyframes darken {
+      100% {
+        filter: brightness(0.5);
+      }
+    }
+
+    ::view-transition-group(root) {
+      animation: none;
+    }
+
+    ::view-transition-group(number) {
+      animation-duration: 0.8s;
+      animation-timing-function: ease-out;
+    }
+
+    ::view-transition-image-pair(number) {
+      transform-style: preserve-3d;
+      perspective: 800px;
+      isolation: auto;
+    }
+
+    ::view-transition-new(number) {
+      transform-origin: top;
+      animation-name: rotate-in, blend-in;
+      backface-visibility: hidden;
+      animation-timing-function: linear(0, 0.149 14.5%, 0.226 19.6%, 0.316 24.2%,
+          0.561 33%, 0.999 44.7%, 0.735 53.1%, 0.674 56.6%, 0.655 59.9%, 0.672 63%,
+          0.721 66.2%, 0.999 77.4%, 0.939 81.3%, 0.921 85%, 0.932 88.2%, 0.99 95.6%, 1),
+        ease-in;
+    }
+
+    ::view-transition-old(number) {
+      transform-origin: top;
+      animation: darken 0.3s;
+      backface-visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="integer">
+    1
+    <span id="tap">Tap on Box</span>
+  </div>
+
+  <script>
+    let counter = 1;
+    let el = document.querySelector(".integer")
+    el.addEventListener("click", () => {
+      counter = counter < 10 ? counter + 1 : 0;
+      const transition = document.startViewTransition(() => {
+        el.textContent = counter;
+      });
+    }, 1000);
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Third File</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000;
+            font-family: 'Space Mono', monospace;
+            overflow: hidden;
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
+        }
+        
+        .btn-container {
+            display: grid;
+            grid-template-columns: repeat(2, 320px);
+            gap: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 0 100px rgba(0, 255, 255, 0.3),
+                inset 0 0 50px rgba(0, 255, 255, 0.1);
+        }
+        
+        .btn-box {
+            position: relative;
+            width: 320px;
+            height: 100px;
+            background: transparent;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        
+        /* LIKE BUTTON - QUANTUM ENTANGLEMENT EFFECT */
+        .like-btn {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                transparent 0%, 
+                rgba(255, 0, 100, 0.1) 50%, 
+                transparent 100%);
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .like-btn::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                #ff0064,
+                #ff00ff,
+                #00ffff,
+                #00ff00,
+                #ff0064
+            );
+            animation: spin 4s linear infinite;
+            z-index: -2;
+        }
+        
+        .like-btn::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: #000;
+            border-radius: 13px;
+            z-index: -1;
+        }
+        
+        .like-btn:hover::before {
+            filter: blur(20px);
+            animation: spin 0.5s linear infinite;
+        }
+        
+        .like-btn:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px #ff0064;
+        }
+        
+        .heart-icon {
+            font-size: 2.5rem;
+            animation: quantumFloat 3s ease-in-out infinite;
+            position: relative;
+        }
+        
+        .heart-icon::before {
+            content: '♥';
+            position: absolute;
+            left: 0;
+            text-shadow: 
+                0 0 10px #ff0064,
+                0 0 20px #ff0064,
+                0 0 30px #ff0064;
+            animation: quantumPulse 2s infinite;
+        }
+        
+        /* SHARE BUTTON - HOLOGRAM FRACTAL */
+        .share-btn {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: 2px solid transparent;
+            color: cyan;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            clip-path: polygon(
+                0% 15%, 15% 0%, 85% 0%, 100% 15%,
+                100% 85%, 85% 100%, 15% 100%, 0% 85%
+            );
+        }
+        
+        .share-btn::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(0, 255, 255, 0.1) 10px,
+                rgba(0, 255, 255, 0.1) 20px
+            );
+            animation: hologramMove 20s linear infinite;
+            z-index: -1;
+        }
+        
+        .share-btn:hover {
+            animation: fractalGlitch 0.5s infinite;
+            border-image: linear-gradient(45deg, cyan, magenta, yellow) 1;
+            box-shadow: 
+                0 0 30px cyan,
+                inset 0 0 30px cyan;
+        }
+        
+        .share-icon {
+            font-size: 2.5rem;
+            animation: rotate3D 5s infinite linear;
+        }
+        
+        /* SUBSCRIBE BUTTON - NEURAL NETWORK */
+        .subscribe-btn {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border: none;
+            color: #ff9900;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            overflow: visible;
+        }
+        
+        .neural-network {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 153, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 153, 0, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .neural-node {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff9900;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: neuralPulse 3s infinite;
+        }
+        
+        .neural-connection {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff9900, transparent);
+            transform-origin: left;
+            animation: neuralFlow 2s infinite linear;
+        }
+        
+        .subscribe-btn:hover {
+            background: rgba(255, 153, 0, 0.1);
+            box-shadow: 
+                0 0 50px #ff9900,
+                0 0 100px #ff9900,
+                inset 0 0 20px rgba(255, 153, 0, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .bell-icon {
+            font-size: 2.5rem;
+            animation: neuralRing 2s infinite;
+            text-shadow: 
+                0 0 10px #ff9900,
+                0 0 20px #ff9900,
+                0 0 30px #ff9900;
+        }
+        
+        /* FOLLOW BUTTON - BLACK HOLE */
+        .follow-btn {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border: none;
+            color: #9d00ff;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            border-radius: 50% 50% 15px 15px;
+            overflow: hidden;
+        }
+        
+        .black-hole {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at center, #9d00ff 0%, #000 70%);
+            border-radius: 50%;
+            animation: blackholeSpin 10s linear infinite;
+            z-index: -1;
+            filter: blur(2px);
+        }
+        
+        .event-horizon {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 2px solid #9d00ff;
+            border-radius: 50%;
+            animation: eventHorizon 5s linear infinite;
+            z-index: -1;
+            box-shadow: 
+                0 0 30px #9d00ff,
+                inset 0 0 30px #9d00ff;
+        }
+        
+        .accretion-disk {
+            position: absolute;
+            width: 200%;
+            height: 40px;
+            background: repeating-conic-gradient(
+                from 0deg,
+                #9d00ff 0deg 10deg,
+                #00ffff 10deg 20deg,
+                transparent 20deg 30deg
+            );
+            animation: accretionSpin 3s linear infinite;
+            z-index: -2;
+        }
+        
+        .follow-btn:hover {
+            color: #00ffff;
+            text-shadow: 0 0 20px #00ffff;
+        }
+        
+        .follow-btn:hover .black-hole {
+            animation: blackholeSpin 0.5s linear infinite;
+            filter: blur(0px);
+        }
+        
+        .user-icon {
+            font-size: 2.5rem;
+            animation: gravitationalWave 3s infinite;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* ADVANCED ANIMATIONS */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes quantumFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(90deg); }
+            50% { transform: translateY(0) rotate(180deg); }
+            75% { transform: translateY(10px) rotate(270deg); }
+        }
+        
+        @keyframes quantumPulse {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.5;
+                transform: scale(1.5);
+            }
+        }
+        
+        @keyframes hologramMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+        
+        @keyframes fractalGlitch {
+            0%, 100% { 
+                clip-path: polygon(
+                    0% 15%, 15% 0%, 85% 0%, 100% 15%,
+                    100% 85%, 85% 100%, 15% 100%, 0% 85%
+                );
+            }
+            25% { 
+                clip-path: polygon(
+                    0% 10%, 10% 0%, 90% 0%, 100% 10%,
+                    100% 90%, 90% 100%, 10% 100%, 0% 90%
+                );
+            }
+            50% { 
+                clip-path: polygon(
+                    5% 15%, 15% 5%, 85% 5%, 95% 15%,
+                    95% 85%, 85% 95%, 15% 95%, 5% 85%
+                );
+            }
+            75% { 
+                clip-path: polygon(
+                    0% 20%, 20% 0%, 80% 0%, 100% 20%,
+                    100% 80%, 80% 100%, 20% 100%, 0% 80%
+                );
+            }
+        }
+        
+        @keyframes rotate3D {
+            0% { transform: rotateY(0deg) rotateX(0deg); }
+            25% { transform: rotateY(90deg) rotateX(45deg); }
+            50% { transform: rotateY(180deg) rotateX(0deg); }
+            75% { transform: rotateY(270deg) rotateX(-45deg); }
+            100% { transform: rotateY(360deg) rotateX(0deg); }
+        }
+        
+        @keyframes neuralPulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: scale(1.5);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes neuralFlow {
+            0% { 
+                transform: scaleX(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% { 
+                transform: scaleX(1) rotate(180deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: scaleX(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes neuralRing {
+            0%, 100% { transform: rotate(0deg); }
+            10% { transform: rotate(-15deg); }
+            20% { transform: rotate(15deg); }
+            30% { transform: rotate(-15deg); }
+            40% { transform: rotate(15deg); }
+            50% { transform: rotate(0deg); }
+        }
+        
+        @keyframes blackholeSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        
+        @keyframes eventHorizon {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        
+        @keyframes accretionSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes gravitationalWave {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg);
+            }
+            25% { 
+                transform: scale(1.2) rotate(90deg);
+            }
+            50% { 
+                transform: scale(1) rotate(180deg);
+            }
+            75% { 
+                transform: scale(0.8) rotate(270deg);
+            }
+        }
+        
+        /* PARTICLE SYSTEMS */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .btn-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .btn-box {
+                width: 280px;
+            }
+        }
+        
+        /* MATRIX BACKGROUND */
+        @keyframes matrixRain {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .matrix-char {
+            position: absolute;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 16px;
+            animation: matrixRain linear infinite;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Rain Background -->
+    <div class="matrix-bg" id="matrixBg"></div>
+    
+    <div class="btn-container">
+        <!-- LIKE BUTTON - Quantum Physics Inspired -->
+        <div class="btn-box">
+            <button class="like-btn">
+                <span class="heart-icon"></span>
+                <span>LIKE</span>
+            </button>
+            <div class="particle-system" id="likeParticles"></div>
+        </div>
+        
+        <!-- SHARE BUTTON - Holographic Technology -->
+        <div class="btn-box">
+            <button class="share-btn">
+                <span class="share-icon">⎘</span>
+                <span>SHARE</span>
+            </button>
+            <div class="particle-system" id="shareParticles"></div>
+        </div>
+        
+        <!-- SUBSCRIBE BUTTON - Neural Network Visualized -->
+        <div class="btn-box">
+            <button class="subscribe-btn">
+                <span class="bell-icon">🔔</span>
+                <span>SUBSCRIBE</span>
+            </button>
+            <div class="neural-network" id="neuralNetwork"></div>
+            <div class="particle-system" id="subscribeParticles"></div>
+        </div>
+        
+        <!-- FOLLOW BUTTON - Black Hole Simulation -->
+        <div class="btn-box">
+            <button class="follow-btn">
+                <span class="user-icon">👥</span>
+                <span>FOLLOW</span>
+            </button>
+            <div class="black-hole"></div>
+            <div class="event-horizon"></div>
+            <div class="accretion-disk"></div>
+            <div class="particle-system" id="followParticles"></div>
+        </div>
+    </div>
+
+    <script>
+        // MATRIX RAIN BACKGROUND
+        const matrixBg = document.getElementById('matrixBg');
+        const chars = '01アイウエオカキクケコサシスセソタチツテト';
+        
+        for(let i = 0; i < 100; i++) {
+            const char = document.createElement('div');
+            char.className = 'matrix-char';
+            char.textContent = chars[Math.floor(Math.random() * chars.length)];
+            char.style.left = Math.random() * 100 + 'vw';
+            char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            char.style.animationDelay = Math.random() * 5 + 's';
+            char.style.opacity = Math.random() * 0.5 + 0.3;
+            matrixBg.appendChild(char);
+        }
+        
+        // QUANTUM LIKE BUTTON - Entangled Particles
+        const likeBtn = document.querySelector('.like-btn');
+        const likeParticles = document.getElementById('likeParticles');
+        
+        likeBtn.addEventListener('mouseenter', function() {
+            createQuantumParticles(likeParticles, '#ff0064');
+        });
+        
+        likeBtn.addEventListener('click', function() {
+            createQuantumExplosion(this);
+        });
+        
+        // HOLOGRAPHIC SHARE BUTTON - Fractal Generation
+        const shareBtn = document.querySelector('.share-btn');
+        
+        shareBtn.addEventListener('click', function() {
+            generateFractal(this);
+        });
+        
+        // NEURAL NETWORK SUBSCRIBE BUTTON
+        const neuralNetwork = document.getElementById('neuralNetwork');
+        createNeuralNetwork(neuralNetwork);
+        
+        // BLACK HOLE FOLLOW BUTTON
+        const followBtn = document.querySelector('.follow-btn');
+        
+        followBtn.addEventListener('mouseenter', function() {
+            createAccretionParticles(this);
+        });
+        
+        // ADVANCED PARTICLE SYSTEMS
+        function createQuantumParticles(container, color) {
+            for(let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                particle.style.cssText = `
+                    width: ${Math.random() * 10 + 5}px;
+                    height: ${Math.random() * 10 + 5}px;
+                    background: ${color};
+                    border-radius: 50%;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    filter: blur(${Math.random() * 3}px);
+                    animation: quantumFloat ${Math.random() * 3 + 2}s infinite;
+                `;
+                
+                container.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 3000);
+            }
+        }
+        
+        function createQuantumExplosion(button) {
+            const rect = button.getBoundingClientRect();
+            
+            for(let i = 0; i < 100; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 200 + 100;
+                const duration = Math.random() * 2 + 1;
+                
+                particle.style.cssText = `
+                    width: ${Math.random() * 15 + 5}px;
+                    height: ${Math.random() * 15 + 5}px;
+                    background: linear-gradient(45deg, #ff0064, #ff00ff);
+                    border-radius: ${Math.random() > 0.5 ? '50%' : '0%'};
+                    left: ${rect.width / 2}px;
+                    top: ${rect.height / 2}px;
+                    position: absolute;
+                    animation: quantumExplode ${duration}s forwards;
+                `;
+                
+                particle.style.setProperty('--angle', angle + 'rad');
+                particle.style.setProperty('--distance', distance + 'px');
+                
+                button.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, duration * 1000);
+            }
+        }
+        
+        function createNeuralNetwork(container) {
+            // Create nodes
+            for(let i = 0; i < 20; i++) {
+                const node = document.createElement('div');
+                node.className = 'neural-node';
+                node.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation-delay: ${Math.random() * 3}s;
+                `;
+                container.appendChild(node);
+            }
+            
+            // Create connections
+            for(let i = 0; i < 10; i++) {
+                const connection = document.createElement('div');
+                connection.className = 'neural-connection';
+                
+                const x1 = Math.random() * 100;
+                const y1 = Math.random() * 100;
+                const x2 = Math.random() * 100;
+                const y2 = Math.random() * 100;
+                
+                const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+                
+                connection.style.cssText = `
+                    left: ${x1}%;
+                    top: ${y1}%;
+                    width: ${length}%;
+                    transform: rotate(${angle}deg);
+                    animation-delay: ${Math.random() * 2}s;
+                `;
+                
+                container.appendChild(connection);
+            }
+        }
+        
+        function generateFractal(button) {
+            const depth = 4;
+            
+            function createFractalLayer(x, y, size, currentDepth, maxDepth, parent) {
+                if(currentDepth >= maxDepth) return;
+                
+                const layer = document.createElement('div');
+                layer.className = 'fractal-layer';
+                
+                layer.style.cssText = `
+                    position: absolute;
+                    left: ${x}px;
+                    top: ${y}px;
+                    width: ${size}px;
+                    height: ${size}px;
+                    border: 1px solid rgba(0, 255, 255, ${0.5 / currentDepth});
+                    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+                    animation: spin ${currentDepth * 2}s linear infinite;
+                `;
+                
+                parent.appendChild(layer);
+                
+                // Recursive fractal generation
+                const newSize = size / 2;
+                const positions = [
+                    [size/4, 0],
+                    [size/2, size/4],
+                    [size/4, size/2],
+                    [0, size/4]
+                ];
+                
+                positions.forEach(([newX, newY]) => {
+                    createFractalLayer(newX, newY, newSize, currentDepth + 1, maxDepth, layer);
+                });
+            }
+            
+            const rect = button.getBoundingClientRect();
+            createFractalLayer(0, 0, rect.width, 0, depth, button);
+            
+            setTimeout(() => {
+                const layers = button.querySelectorAll('.fractal-layer');
+                layers.forEach(layer => layer.remove());
+            }, 3000);
+        }
+        
+        function createAccretionParticles(button) {
+            const particles = [];
+            
+            for(let i = 0; i < 200; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 300 + 100;
+                const size = Math.random() * 8 + 2;
+                
+                particle.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: linear-gradient(45deg, #9d00ff, #00ffff);
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    filter: blur(${size/3}px);
+                `;
+                
+                button.appendChild(particle);
+                particles.push({element: particle, angle: angle, distance: distance});
+            }
+            
+            // Animate particles spiraling into black hole
+            let time = 0;
+            function animateParticles() {
+                time += 0.01;
+                
+                particles.forEach((particle, i) => {
+                    const currentDistance = particle.distance * (1 - time * 0.5);
+                    const x = Math.cos(particle.angle + time * 5) * currentDistance;
+                    const y = Math.sin(particle.angle + time * 2) * currentDistance;
+                    
+                    particle.element.style.transform = `translate(${x}px, ${y}px)`;
+                    particle.element.style.opacity = 1 - time * 2;
+                    
+                    if(currentDistance < 10) {
+                        particle.element.remove();
+                        particles.splice(i, 1);
+                    }
+                });
+                
+                if(particles.length > 0) {
+                    requestAnimationFrame(animateParticles);
+                }
+            }
+            
+            animateParticles();
+        }
+        
+        // Add new CSS for quantum explosion
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes quantumExplode {
+                0% {
+                    transform: translate(0, 0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: 
+                        translate(
+                            calc(cos(var(--angle)) * var(--distance)), 
+                            calc(sin(var(--angle)) * var(--distance))
+                        ) 
+                        scale(0);
+                    opacity: 0;
+                }
+            }
+            
+            .fractal-layer {
+                position: absolute;
+                border: 1px solid rgba(0, 255, 255, 0.3);
+                animation: spin 2s linear infinite;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Add sound effects simulation (visual only)
+        document.addEventListener('click', (e) => {
+            if(e.target.classList.contains('like-btn') || 
+               e.target.classList.contains('share-btn') || 
+               e.target.classList.contains('subscribe-btn') || 
+               e.target.classList.contains('follow-btn')) {
+                // Create visual sound wave
+                createSoundWave(e);
+            }
+        });
+        
+        function createSoundWave(event) {
+            const wave = document.createElement('div');
+            wave.className = 'sound-wave';
+            
+            wave.style.cssText = `
+                position: fixed;
+                left: ${event.clientX}px;
+                top: ${event.clientY}px;
+                width: 10px;
+                height: 10px;
+                border: 2px solid rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                animation: soundWave 1s forwards;
+            `;
+            
+            document.body.appendChild(wave);
+            
+            setTimeout(() => {
+                wave.remove();
+            }, 1000);
+        }
+        
+        // Add sound wave animation
+        const waveStyle = document.createElement('style');
+        waveStyle.textContent = `
+            @keyframes soundWave {
+                0% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(50);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(waveStyle);
+    </script>
+</body>
+</html>

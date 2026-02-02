@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fourth File</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000000;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 320px);
+            gap: 30px;
+            padding: 40px;
+            background: rgba(10, 10, 12, 0.95);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .btn {
+            position: relative;
+            width: 300px;
+            height: 50px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            padding: 40px 40px;
+            color: white;
+            will-change: transform, box-shadow;
+        }
+
+        /* === LIKE BUTTON - FLUID HEART SYSTEM === */
+        .like-btn {
+            background: linear-gradient(135deg,
+                    rgba(255, 65, 108, 0.9) 0%,
+                    rgba(255, 75, 43, 0.9) 100%);
+            box-shadow:
+                0 10px 30px rgba(255, 65, 108, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .like-btn:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow:
+                0 25px 50px rgba(255, 65, 108, 0.5),
+                0 0 60px rgba(255, 65, 108, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .heart-wrapper {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .heart-main {
+            font-size: 2.8rem;
+            position: relative;
+            z-index: 2;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .like-btn:hover .heart-main {
+            animation: fluidHeart 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+
+        .heart-orbits {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .orbit {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: orbitFloat 4s cubic-bezier(0.55, 0.085, 0.68, 0.53) infinite;
+        }
+
+        .orbit:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: -5px;
+            left: -5px;
+            animation-delay: 0s;
+        }
+
+        .orbit:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: -15px;
+            left: -15px;
+            animation-delay: 0.2s;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .orbit:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: -25px;
+            left: -25px;
+            animation-delay: 0.4s;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* === SHARE BUTTON - QUANTUM WAVE === */
+        .share-btn {
+            background: linear-gradient(135deg,
+                    rgba(0, 184, 212, 0.9) 0%,
+                    rgba(0, 140, 255, 0.9) 100%);
+            box-shadow:
+                0 10px 30px rgba(0, 184, 212, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .share-btn:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow:
+                0 25px 50px rgba(0, 184, 212, 0.5),
+                0 0 60px rgba(0, 184, 212, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .share-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.2),
+                    transparent);
+            transition: left 0.7s ease;
+        }
+
+        .share-btn:hover::before {
+            left: 100%;
+        }
+
+        .share-icon {
+            font-size: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            z-index: 2;
+        }
+
+        .share-btn:hover .share-icon {
+            animation: quantumShare 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+
+        .wave-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: waveFlow 6s cubic-bezier(0.36, 0, 0.66, 1) infinite;
+            opacity: 0;
+        }
+
+        .wave:nth-child(1) {
+            animation-delay: 0s;
+            left: -50%;
+            top: -50%;
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: 2s;
+            left: -50%;
+            top: -50%;
+        }
+
+        .wave:nth-child(3) {
+            animation-delay: 4s;
+            left: -50%;
+            top: -50%;
+        }
+
+        /* === SUBSCRIBE BUTTON - HYPERSPACE === */
+        .subscribe-btn {
+            background: linear-gradient(135deg,
+                    rgba(255, 179, 71, 0.9) 0%,
+                    rgba(255, 210, 0, 0.9) 100%);
+            box-shadow:
+                0 10px 30px rgba(255, 179, 71, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .subscribe-btn:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow:
+                0 25px 50px rgba(255, 179, 71, 0.5),
+                0 0 60px rgba(255, 179, 71, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .subscribe-icon {
+            font-size: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            z-index: 2;
+        }
+
+        .subscribe-btn:hover .subscribe-icon {
+            animation: hyperspaceBell 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+
+        /* === FOLLOW BUTTON - NEURAL CONNECTION === */
+        .follow-btn {
+            background: linear-gradient(135deg,
+                    rgba(157, 80, 187, 0.9) 0%,
+                    rgba(110, 72, 170, 0.9) 100%);
+            box-shadow:
+                0 10px 30px rgba(157, 80, 187, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .follow-btn:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow:
+                0 25px 50px rgba(157, 80, 187, 0.5),
+                0 0 60px rgba(157, 80, 187, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .follow-icon {
+            font-size: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            z-index: 2;
+        }
+
+        .follow-btn:hover .follow-icon {
+            animation: neuralConnect 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+
+        /* === SMOOTH ANIMATIONS === */
+        @keyframes fluidHeart {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+            }
+
+            25% {
+                transform: scale(1.1) rotate(-5deg);
+                filter: drop-shadow(0 0 20px rgba(255, 65, 108, 0.8));
+            }
+
+            50% {
+                transform: scale(1.15) rotate(0deg);
+                filter: drop-shadow(0 0 30px rgba(255, 65, 108, 1));
+            }
+
+            75% {
+                transform: scale(1.1) rotate(5deg);
+                filter: drop-shadow(0 0 20px rgba(255, 65, 108, 0.8));
+            }
+        }
+
+        @keyframes orbitFloat {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.1) rotate(180deg);
+                opacity: 0.2;
+            }
+        }
+
+        @keyframes quantumShare {
+
+            0%,
+            100% {
+                transform: translateX(0) rotateY(0deg);
+                filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+            }
+
+            25% {
+                transform: translateX(-5px) rotateY(90deg);
+                filter: drop-shadow(0 0 20px rgba(0, 184, 212, 0.8));
+            }
+
+            50% {
+                transform: translateX(0) rotateY(180deg);
+                filter: drop-shadow(0 0 30px rgba(0, 184, 212, 1));
+            }
+
+            75% {
+                transform: translateX(5px) rotateY(270deg);
+                filter: drop-shadow(0 0 20px rgba(0, 184, 212, 0.8));
+            }
+        }
+
+        @keyframes waveFlow {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes hyperspaceBell {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+                filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+            }
+
+            25% {
+                transform: translateY(-3px) rotate(-10deg);
+                filter: drop-shadow(0 0 20px rgba(255, 179, 71, 0.8));
+            }
+
+            50% {
+                transform: translateY(0) rotate(0deg);
+                filter: drop-shadow(0 0 30px rgba(255, 179, 71, 1));
+            }
+
+            75% {
+                transform: translateY(3px) rotate(10deg);
+                filter: drop-shadow(0 0 20px rgba(255, 179, 71, 0.8));
+            }
+        }
+
+        @keyframes neuralConnect {
+
+            0%,
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+            }
+
+            33% {
+                transform: scale(1.2);
+                filter: drop-shadow(0 0 20px rgba(157, 80, 187, 0.8)) drop-shadow(0 0 40px rgba(157, 80, 187, 0.6));
+            }
+
+            66% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 15px rgba(157, 80, 187, 0.9));
+            }
+        }
+
+        /* === PARTICLE EFFECTS === */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* === CLICK RIPPLE === */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: rippleExpand 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+        }
+
+        @keyframes rippleExpand {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 30px;
+                gap: 25px;
+            }
+
+            .btn {
+                width: 300px;
+                height: 90px;
+                font-size: 1.6rem;
+                padding: 0 35px;
+            }
+
+            .heart-main,
+            .share-icon,
+            .subscribe-icon,
+            .follow-icon {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                width: 280px;
+                height: 85px;
+                font-size: 1.5rem;
+                padding: 0 30px;
+                gap: 15px;
+            }
+        }
+
+        /* === PERFORMANCE OPTIMIZATION === */
+        .btn,
+        .heart-main,
+        .share-icon,
+        .orbit,
+        .wave {
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- LIKE BUTTON - Fluid Heart -->
+        <button class="btn like-btn" id="likeBtn">
+            <div class="heart-wrapper">
+                <div class="heart-orbits">
+                    <div class="orbit"></div>
+                    <div class="orbit"></div>
+                    <div class="orbit"></div>
+                </div>
+                <div class="heart-main">❤️</div>
+            </div>
+            <span>LIKE</span>
+            <div class="particles" id="likeParticles"></div>
+        </button>
+
+        <!-- SHARE BUTTON - Quantum Wave -->
+        <button class="btn share-btn" id="shareBtn">
+            <div class="wave-container">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+            </div>
+            <div class="share-icon">⎘</div>
+            <span>SHARE</span>
+            <div class="particles" id="shareParticles"></div>
+        </button>
+
+        <!-- SUBSCRIBE BUTTON - Hyperspace -->
+        <button class="btn subscribe-btn" id="subscribeBtn">
+            <div class="subscribe-icon">🔔</div>
+            <span>SUBSCRIBE</span>
+            <div class="particles" id="subscribeParticles"></div>
+        </button>
+
+        <!-- FOLLOW BUTTON - Neural Network -->
+        <button class="btn follow-btn" id="followBtn">
+            <div class="follow-icon">👥</div>
+            <span>FOLLOW</span>
+            <div class="particles" id="followParticles"></div>
+        </button>
+    </div>
+
+    <script>
+        // === SMOOTH ANIMATION CONTROLLER ===
+        class SmoothButton {
+            constructor(button) {
+                this.button = button;
+                this.particles = button.querySelector('.particles');
+                this.isHovering = false;
+                this.init();
+            }
+
+            init() {
+                this.button.addEventListener('mouseenter', () => this.onHover());
+                this.button.addEventListener('mouseleave', () => this.onLeave());
+                this.button.addEventListener('click', (e) => this.onClick(e));
+
+                // Pre-calculate animations for smoothness
+                this.precalculateParticles();
+            }
+
+            onHover() {
+                this.isHovering = true;
+                this.createHoverParticles();
+            }
+
+            onLeave() {
+                this.isHovering = false;
+            }
+
+            onClick(e) {
+                this.createRipple(e);
+                this.createClickParticles(e);
+
+                // Smooth click animation
+                this.button.style.transform = 'translateY(-4px) scale(0.98)';
+                setTimeout(() => {
+                    this.button.style.transform = '';
+                }, 150);
+            }
+
+            createRipple(e) {
+                const rect = this.button.getBoundingClientRect();
+                const ripple = document.createElement('div');
+                ripple.className = 'ripple';
+
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                `;
+
+                this.button.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 600);
+            }
+
+            precalculateParticles() {
+                // Pre-create particles for better performance
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.opacity = '0';
+                    this.particles.appendChild(particle);
+                }
+            }
+
+            createHoverParticles() {
+                const particles = this.particles.querySelectorAll('.particle');
+
+                particles.forEach((particle, i) => {
+                    if (i < 10) { // Only activate some particles
+                        this.activateParticle(particle, true);
+                    }
+                });
+            }
+
+            createClickParticles(e) {
+                const rect = this.button.getBoundingClientRect();
+                const color = this.getButtonColor();
+
+                // Create burst particles
+                for (let i = 0; i < 25; i++) {
+                    this.createBurstParticle(rect, e, color);
+                }
+            }
+
+            createBurstParticle(rect, e, color) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 50;
+                const duration = Math.random() * 1 + 0.5;
+                const size = Math.random() * 8 + 3;
+
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                particle.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: ${color};
+                    left: ${x}px;
+                    top: ${y}px;
+                    --tx: ${Math.cos(angle) * distance}px;
+                    --ty: ${Math.sin(angle) * distance}px;
+                    animation-duration: ${duration}s;
+                    filter: blur(${size / 4}px);
+                    box-shadow: 0 0 ${size}px ${color};
+                `;
+
+                this.button.appendChild(particle);
+
+                setTimeout(() => particle.remove(), duration * 1000);
+            }
+
+            activateParticle(particle, isHover) {
+                const rect = this.button.getBoundingClientRect();
+                const color = this.getButtonColor();
+
+                const startX = Math.random() * rect.width;
+                const startY = Math.random() * rect.height;
+                const angle = Math.random() * Math.PI * 2;
+                const distance = isHover ? 30 : 80;
+                const duration = Math.random() * 2 + 1;
+                const size = Math.random() * 4 + 2;
+
+                particle.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: ${color};
+                    left: ${startX}px;
+                    top: ${startY}px;
+                    --tx: ${Math.cos(angle) * distance}px;
+                    --ty: ${Math.sin(angle) * distance}px;
+                    animation-duration: ${duration}s;
+                    opacity: 1;
+                    filter: blur(${size / 4}px);
+                    box-shadow: 0 0 ${size}px ${color};
+                `;
+
+                // Reset and reuse particle
+                setTimeout(() => {
+                    particle.style.opacity = '0';
+                    if (this.isHovering) {
+                        setTimeout(() => this.activateParticle(particle, true), Math.random() * 1000);
+                    }
+                }, duration * 1000);
+            }
+
+            getButtonColor() {
+                if (this.button.classList.contains('like-btn')) {
+                    return 'rgba(255, 65, 108, 0.8)';
+                } else if (this.button.classList.contains('share-btn')) {
+                    return 'rgba(0, 184, 212, 0.8)';
+                } else if (this.button.classList.contains('subscribe-btn')) {
+                    return 'rgba(255, 179, 71, 0.8)';
+                } else {
+                    return 'rgba(157, 80, 187, 0.8)';
+                }
+            }
+        }
+
+        // === INITIALIZE BUTTONS ===
+        const buttons = document.querySelectorAll('.btn');
+        const buttonInstances = [];
+
+        buttons.forEach(button => {
+            buttonInstances.push(new SmoothButton(button));
+        });
+
+        // === ADVANCED INTERACTIONS ===
+
+        // LIKE Button - Heart Stream
+        const likeBtn = document.getElementById('likeBtn');
+        let heartStreamInterval;
+
+        likeBtn.addEventListener('mouseenter', () => {
+            heartStreamInterval = setInterval(() => {
+                createFloatingHeart(likeBtn);
+            }, 300);
+        });
+
+        likeBtn.addEventListener('mouseleave', () => {
+            clearInterval(heartStreamInterval);
+        });
+
+        function createFloatingHeart(button) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.cssText = `
+                position: absolute;
+                font-size: ${Math.random() * 20 + 15}px;
+                left: ${Math.random() * 100}%;
+                top: 100%;
+                opacity: 0;
+                filter: drop-shadow(0 0 10px rgba(255, 65, 108, 0.7));
+                animation: floatUp ${Math.random() * 2 + 1.5}s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+                z-index: 1;
+            `;
+
+            button.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 2000);
+        }
+
+        // Add floating heart animation
+        const floatStyle = document.createElement('style');
+        floatStyle.textContent = `
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(0) scale(0.5) rotate(0deg);
+                    opacity: 0;
+                }
+                20% {
+                    opacity: 1;
+                }
+                80% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-150px) scale(1) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(floatStyle);
+
+        // SHARE Button - Wave Expansion
+        const shareBtn = document.getElementById('shareBtn');
+
+        shareBtn.addEventListener('click', () => {
+            createWaveExpansion(shareBtn);
+        });
+
+        function createWaveExpansion(button) {
+            const wave = document.createElement('div');
+            wave.style.cssText = `
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border: 2px solid rgba(0, 184, 212, 0.6);
+                border-radius: 20px;
+                top: 0;
+                left: 0;
+                animation: waveExpand 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+                pointer-events: none;
+                z-index: 1;
+            `;
+
+            button.appendChild(wave);
+
+            setTimeout(() => wave.remove(), 1200);
+        }
+
+        // Add wave expansion animation
+        const waveStyle = document.createElement('style');
+        waveStyle.textContent = `
+            @keyframes waveExpand {
+                0% {
+                    transform: scale(1);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: scale(1.3);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(waveStyle);
+
+        // === KEYBOARD NAVIGATION ===
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const activeBtn = document.activeElement;
+                if (activeBtn.classList.contains('btn')) {
+                    activeBtn.click();
+                }
+            }
+        });
+
+        // === PERFORMANCE OPTIMIZATION ===
+        // Use requestAnimationFrame for smooth animations
+        let lastTime = 0;
+        function animate(time) {
+            const delta = time - lastTime;
+            lastTime = time;
+
+            // Your animation updates here
+
+            requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+
+        // Prevent layout thrashing
+        let rafId;
+        window.addEventListener('scroll', () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(() => {
+                // Update positions if needed
+            });
+        });
+    </script>
+</body>
+
+</html>

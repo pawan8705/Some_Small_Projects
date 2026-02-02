@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First File</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            min-height: 100vh;
+            background: #0f0f1a;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 50vh;
+            height: 60vh;
+            margin: 10vh auto;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 30vh;
+            padding: 20px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: white;
+            gap: 15px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--color1), var(--color2));
+            z-index: -2;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        .btn i {
+            font-size: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+        }
+
+        .btn-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        /* LIKE Button - Modern Neon Glow */
+        .btn-like {
+            --color1: #ff2a6d;
+            --color2: #ff8ba0;
+            box-shadow:
+                0 10px 30px rgba(255, 42, 109, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-like:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow:
+                0 20px 40px rgba(255, 42, 109, 0.5),
+                0 0 60px rgba(255, 42, 109, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-like:hover i {
+            animation: heartBeat 1s infinite;
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7));
+        }
+
+        /* SHARE Button - 3D Flip Effect */
+        .btn-share {
+            --color1: #00d9ff;
+            --color2: #008cff;
+            box-shadow:
+                0 10px 30px rgba(0, 217, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            perspective: 1000px;
+        }
+
+        .btn-share:hover {
+            transform: rotateY(15deg) rotateX(5deg) translateY(-10px);
+            box-shadow:
+                0 20px 40px rgba(0, 217, 255, 0.5),
+                0 0 60px rgba(0, 217, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-share:hover i {
+            animation: shareFloat 2s ease-in-out infinite;
+            transform: scale(1.2);
+        }
+
+        /* SUBSCRIBE Button - Glitch Effect */
+        .btn-subscribe {
+            --color1: #ffb347;
+            --color2: #ffcc33;
+            box-shadow:
+                0 10px 30px rgba(255, 179, 71, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-subscribe:hover {
+            transform: translateY(-10px) scale(1.05);
+            animation: glitch 0.3s linear;
+            box-shadow:
+                0 20px 40px rgba(255, 179, 71, 0.5),
+                0 0 60px rgba(255, 179, 71, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-subscribe:hover i {
+            animation: bellSwing 1s infinite alternate;
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        /* FOLLOW Button - Matrix Rain Effect */
+        .btn-follow {
+            --color1: #9d50bb;
+            --color2: #6e48aa;
+            box-shadow:
+                0 10px 30px rgba(157, 80, 187, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-follow::before {
+            animation: matrixRain 10s linear infinite;
+        }
+
+        .btn-follow:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow:
+                0 20px 40px rgba(157, 80, 187, 0.5),
+                0 0 60px rgba(157, 80, 187, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-follow:hover i {
+            animation: userPulse 1.5s infinite;
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7));
+        }
+
+        /* Advanced Animations */
+        @keyframes heartBeat {
+
+            0%,
+            100% {
+                transform: scale(1.2);
+            }
+
+            50% {
+                transform: scale(1.4);
+            }
+        }
+
+        @keyframes shareFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0) scale(1.2);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(10deg) scale(1.3);
+            }
+        }
+
+        @keyframes bellSwing {
+            0% {
+                transform: rotate(-15deg) scale(1.2);
+            }
+
+            100% {
+                transform: rotate(15deg) scale(1.2);
+            }
+        }
+
+        @keyframes userPulse {
+
+            0%,
+            100% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.4);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0) scale(1.05);
+            }
+
+            20% {
+                transform: translate(-3px, 3px) scale(1.05);
+            }
+
+            40% {
+                transform: translate(-3px, -3px) scale(1.05);
+            }
+
+            60% {
+                transform: translate(3px, 3px) scale(1.05);
+            }
+
+            80% {
+                transform: translate(3px, -3px) scale(1.05);
+            }
+
+            100% {
+                transform: translate(0) scale(1.05);
+            }
+        }
+
+        @keyframes matrixRain {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            100% {
+                background-position: 0% 100%;
+            }
+        }
+
+        /* Button Click Effects */
+        .btn:active {
+            transform: scale(0.95) !important;
+            transition: transform 0.1s ease;
+        }
+
+        /* Particle Effects */
+        .btn-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.7;
+            animation: particleFly 1s ease-out forwards;
+        }
+
+        @keyframes particleFly {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- LIKE Button -->
+        <button class="btn btn-like" id="likeBtn">
+            <i class="fas fa-heart"></i>
+            <span class="btn-text">LIKE</span>
+        </button>
+
+        <!-- SHARE Button -->
+        <button class="btn btn-share" id="shareBtn">
+            <i class="fas fa-share-alt"></i>
+            <span class="btn-text">SHARE</span>
+        </button>
+
+        <!-- SUBSCRIBE Button -->
+        <button class="btn btn-subscribe" id="subscribeBtn">
+            <i class="fas fa-bell"></i>
+            <span class="btn-text">SUBSCRIBE</span>
+        </button>
+
+        <!-- FOLLOW Button -->
+        <button class="btn btn-follow" id="followBtn">
+            <i class="fas fa-user-plus"></i>
+            <span class="btn-text">FOLLOW</span>
+        </button>
+    </div>
+
+    <script>
+        // Get all buttons
+        const buttons = document.querySelectorAll('.btn');
+
+        // Particle effect on click
+        buttons.forEach(button => {
+            button.addEventListener('click', function (e) {
+                // Create particles
+                for (let i = 0; i < 15; i++) {
+                    createParticle(e.clientX, e.clientY, this);
+                }
+
+                // Sound effect simulation (visual feedback)
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 10);
+            });
+
+            // Add ripple effect
+            button.addEventListener('mousedown', function (e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.5);
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    pointer-events: none;
+                    transform: scale(0);
+                    animation: ripple 0.6s ease-out;
+                `;
+
+                this.appendChild(ripple);
+
+                // Remove ripple after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Create particle effect
+        function createParticle(x, y, button) {
+            const particle = document.createElement('div');
+            particle.className = 'btn-particle';
+
+            // Random direction and color
+            const angle = Math.random() * Math.PI * 2;
+            const speed = 50 + Math.random() * 100;
+            const tx = Math.cos(angle) * speed;
+            const ty = Math.sin(angle) * speed;
+
+            // Set particle position relative to button
+            const rect = button.getBoundingClientRect();
+            const px = x - rect.left;
+            const py = y - rect.top;
+
+            particle.style.setProperty('--tx', `${tx}px`);
+            particle.style.setProperty('--ty', `${ty}px`);
+            particle.style.left = `${px}px`;
+            particle.style.top = `${py}px`;
+
+            // Random color based on button
+            if (button.classList.contains('btn-like')) {
+                particle.style.background = '#ff2a6d';
+            } else if (button.classList.contains('btn-share')) {
+                particle.style.background = '#00d9ff';
+            } else if (button.classList.contains('btn-subscribe')) {
+                particle.style.background = '#ffb347';
+            } else {
+                particle.style.background = '#9d50bb';
+            }
+
+            // Add to button
+            button.appendChild(particle);
+
+            // Remove after animation
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
+        }
+
+        // Add ripple animation to style
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const activeBtn = document.activeElement;
+                if (activeBtn.classList.contains('btn')) {
+                    activeBtn.click();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
